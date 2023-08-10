@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './modules/user.module';
 import { PlanModule } from './modules/plan.module';
+import { ConfigureModule } from './modules/configure.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { PlanModule } from './modules/plan.module';
     }),
     UserModule,
     PlanModule,
+    ConfigureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
