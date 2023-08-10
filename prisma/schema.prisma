@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// User model
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String
+  lastname      String
+  email         String    @unique
+  password_hash String
+  cpf           String    @unique
+  require_auth  DateTime?
+  phone         String
+  role          String
+  status        String
+
+  Flight Flight[]
+  Plan   Plan[]
+}
+
+// Area model
+model Area {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  // Relacionamento um-para-muitos com Flight
+  flights Flight[]
+}
+
+// Flight model
+model Flight {
+  id   Int      @id @default(autoincrement())
+  date DateTime
+
+  // Relacionamento muitos-para-um com User
+  user    User? @relation(fields: [user_id], references: [id])
+  user_id Int?
+
+  // Relacionamento muitos-para-um com Area
+  area    Area? @relation(fields: [area_id], references: [id])
+  area_id Int?
+
+  // Relacionamento um-para-muitos com Image
+  images    Image[]
+  Project   Project?  @relation(fields: [projectId], references: [id])
+  projectId Int?
+  Service   Service[]
+}
+
+// Image model
+model Image {
+  id        Int    @id @default(autoincrement())
+  image_url String
+
+  // Relacionamento muitos-para-um com Flight
+  flight    Flight? @relation(fields: [flight_id], references: [id])
+  flight_id Int?
+}
+
+// Project model
+model Project {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  // Relacionamento um-para-muitos com Flight
+  flights Flight[]
+}
+
+// Service model
+model Service {
+  id           Int    @id @default(autoincrement())
+  service_type String
+
+  // Relacionamento muitos-para-um com Flight
+  flight    Flight? @relation(fields: [flight_id], references: [id])
+  flight_id Int?
+}
+
+// Plan model
+model Plan {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  max_images         Int
+  storage_space      Int
+  start_date         DateTime?
+  end_date           DateTime?
+  observation        String
+  active             Boolean
+  price              Int
+  months_of_validity Int
+  site_emphasis      Boolean
+
+  // Relacionamento muitos-para-um com User
+  user    User? @relation(fields: [user_id], references: [id])
+  user_id Int?
+}
