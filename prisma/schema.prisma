@@ -22,6 +22,7 @@ model User {
   phone         String
   role          String
   status        String
+  access_At     DateTime?
 
   Flight Flight[]
   Plan   Plan[]

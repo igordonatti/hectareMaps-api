@@ -51,7 +51,8 @@ export class ConfigureController {
     }
   } // setData()
 
-  async getHelperrs(@Res() res: Response) {
+  @Get('get-helpers')
+  async getHelpers(@Res() res: Response) {
     return res.status(helpers.httpStatusCode.OK).send(helpers.enumHelperExport);
   }
 }
