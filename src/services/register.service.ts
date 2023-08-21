@@ -98,17 +98,17 @@ export class RegisterService {
       });
 
       // tem de arrumar essa logica
-      const token = await this.tokenUtil.tokenGenerate(emailValid);
+      const token = await this.tokenUtil.tokenGenerate(user);
 
       return {
         status: 200,
         message: 'Acesso Autorizado',
         user: {
-          id_user: emailValid.id,
-          email: emailValid.email,
-          name: emailValid.name,
-          role: emailValid.role,
-          status: emailValid.status,
+          id_user: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+          status: user.status,
           token: token,
         },
       };
