@@ -67,9 +67,29 @@ export class RegisterService {
           where: { email: data.email, password_hash: data.password },
         });
 
+      let user: UserDto;
+
+      if (emailValid.status == 'UPDATE') {
+        user = await this.prisma.user.findFirst({
+          where: {
+            email: data.email,
+            password_hash: data.password,
+          },
+        });
+      } else {
+        user = await this.prisma.user.findFirst({
+          where: {
+            email: data.email,
+            password_hash: data.password,
+          },
+        });
+      }
+
+      if (!user || !user.id) return { status: 422, message: 'Senha Incorreta' };
+
       await this.prisma.user.update({
         where: {
-          email: emailValid.email,
+          email: user.email,
         },
         data: {
           require_auth: new Date(),
