@@ -3,7 +3,6 @@ import {
   Controller,
   HttpException,
   HttpStatus,
-  Get,
   Res,
   Post,
 } from '@nestjs/common';
@@ -16,7 +15,7 @@ import { UserDto } from 'src/dtos/user.dto';
 export class RegisterController {
   constructor(private readonly registerService: RegisterService) {}
 
-  @Get('signIn')
+  @Post('signIn')
   async signIn(@Body() body: SignIn, @Res() res: Response) {
     try {
       res.status(200).send(await this.registerService.signIn(body));
