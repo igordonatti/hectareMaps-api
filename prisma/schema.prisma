@@ -59,8 +59,10 @@ model Flight {
 
 // Image model
 model Image {
-  id        Int    @id @default(autoincrement())
-  image_url String
+  id       Int    @id @default(autoincrement())
+  filename String
+  path     String
+  mimetype String
 
   // Relacionamento muitos-para-um com Flight
   flight    Flight? @relation(fields: [flight_id], references: [id])

@@ -2,6 +2,11 @@ import { JwtService } from '@nestjs/jwt';
 import { UserDto } from 'src/dtos/user.dto';
 import { Injectable } from '@nestjs/common';
 
+interface DecodedToken {
+  id_user: number;
+  email: string;
+}
+
 @Injectable()
 export class TokenUtil {
   constructor(private jwtService: JwtService) {}
@@ -18,5 +23,14 @@ export class TokenUtil {
         },
       ),
     };
+  }
+
+  async decodeToken(token: string) {
+    try {
+      const decoded: DecodedToken = this.jwtService.verify(token);
+      return decoded;
+    } catch (error) {
+      throw new Error('Invalid Token');
+    }
   }
 }
