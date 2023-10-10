@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthMiddleware } from 'src/middlewares/auth.middleware';
-import { AuthService } from 'src/services/auth.service';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {

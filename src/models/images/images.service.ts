@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/databases/prisma.service';
 import { createReadStream, existsSync, mkdirSync, createWriteStream } from 'fs';
-import * as multer from 'multer';
 import * as path from 'path';
 import { env } from 'process';
 

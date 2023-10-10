@@ -10,7 +10,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { diskStorage } from 'multer';
-import { ImagesService } from 'src/services/images.service';
+import { ImagesService } from './images.service';
 
 @Controller('images')
 export class ImagesController {

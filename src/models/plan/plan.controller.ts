@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { PlanDto } from 'src/dtos/plan.dto';
-import { PlanService } from 'src/services/plan.service';
+import { PlanService } from './plan.service';
 
 @Controller('plan')
 export class PlanController {

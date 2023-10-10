@@ -7,7 +7,7 @@ import {
   Post,
   Body,
 } from '@nestjs/common';
-import { ConfigureService } from 'src/services/configure.service';
+import { ConfigureService } from './configure.service';
 import { Response } from 'express';
 import { helpers } from 'src/helpers';
 
