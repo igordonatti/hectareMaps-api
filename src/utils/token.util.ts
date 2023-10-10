@@ -16,6 +16,7 @@ export class TokenUtil {
       access_token: this.jwtService.sign(
         {
           email: payload.email,
+          user_id: payload.id,
         },
         {
           secret: process.env.JWT_SECRET,
@@ -27,7 +28,9 @@ export class TokenUtil {
 
   async decodeToken(token: string) {
     try {
-      const decoded: DecodedToken = this.jwtService.verify(token);
+      const decoded: DecodedToken = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET,
+      });
       return decoded;
     } catch (error) {
       throw new Error('Invalid Token');

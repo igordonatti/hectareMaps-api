@@ -1,13 +1,13 @@
 {
   "icon": {
-    "logo": "1616893200409.png",
+    "logo": "./assets/1616893200409.png",
     "favicon": "1616893243334.ico",
     "background": "1616892725620.png"
   },
   "hero": {
     "title": "Hectare Maps",
     "subtitle": "Plataforma de processamento de imagens com drones",
-    "background": "1616281747075.jpeg",
+    "background": "./assets/1616281747075.jpeg",
     "position": "end",
     "shownavigationlogo": true,
     "showlogo": true
