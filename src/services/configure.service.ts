@@ -26,7 +26,7 @@ export class ConfigureService {
         icon: jsonData.icon,
         hero: jsonData.hero,
         about: jsonData.about,
-        serrvice: jsonData.service,
+        service: jsonData.service,
         plan: jsonData.plan,
         video: jsonData.video,
         contact: jsonData.contact,

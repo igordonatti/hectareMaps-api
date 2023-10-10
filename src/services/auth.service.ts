@@ -9,7 +9,7 @@ export class AuthService {
     try {
       const user = await this.TokenUtil.decodeToken(token);
       console.log(user);
-      return { isValid: Boolean(user.id_user), message: 'ok' };
+      return { isValid: true, message: 'ok' };
     } catch (error) {
       return { isValid: false, message: error.message };
     }
