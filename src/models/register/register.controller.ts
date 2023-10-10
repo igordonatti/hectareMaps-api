@@ -6,7 +6,7 @@ import {
   Res,
   Post,
 } from '@nestjs/common';
-import { RegisterService } from 'src/services/register.service';
+import { RegisterService } from './register.service';
 import { Response } from 'express';
 import { SignIn } from 'src/dtos/signIn.dto';
 import { UserDto } from 'src/dtos/user.dto';

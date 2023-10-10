@@ -9,7 +9,7 @@ import {
   Post,
   Body,
 } from '@nestjs/common';
-import { UserService } from 'src/services/user.service';
+import { UserService } from './user.service';
 import { Response } from 'express';
 import { UserDto } from 'src/dtos/user.dto';
 
