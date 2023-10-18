@@ -12,17 +12,16 @@ datasource db {
 
 // User model
 model User {
-  id            Int       @id @default(autoincrement())
-  name          String
-  lastname      String
-  email         String    @unique
-  password_hash String
-  cpf           String    @unique
-  require_auth  DateTime?
-  phone         String
-  role          String
-  status        String
-  access_At     DateTime?
+  id        Int       @id @default(autoincrement())
+  name      String
+  lastname  String
+  email     String    @unique
+  password  String
+  cpf       String    @unique
+  phone     String
+  role      String
+  status    String
+  access_At DateTime?
 
   Flight Flight[]
   Plan   Plan[]

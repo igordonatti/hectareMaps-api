@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/databases/prisma.service';
-import { UserService } from '../user/user.service';
-import { UserDto } from 'src/dtos/user.dto';
 import { SignIn } from 'src/dtos/signIn.dto';
 import { TokenUtil } from 'src/utils/token.util';
+import { UserService } from 'src/user/user.service';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class RegisterService {
@@ -13,7 +13,7 @@ export class RegisterService {
     private readonly tokenUtil: TokenUtil,
   ) {}
 
-  async signUp(data: UserDto) {
+  async signUp(data: User) {
     try {
       const result = await this.prisma.user.findFirst({
         where: { email: data.email },
@@ -37,6 +37,7 @@ export class RegisterService {
     }
   } // signUp()
 
+  /*
   async signIn(data: SignIn) {
     try {
       let emailValid = await this.prisma.user.findFirst({
@@ -116,15 +117,5 @@ export class RegisterService {
       throw new Error('RegisterService.signIn: ' + error);
     }
   } // signIn()
-
-  async loggedUserFormatter(user: UserDto, token: string) {
-    return {
-      id_user: user.id,
-      email: user.email,
-      name: user.name,
-      role: user.role,
-      status: user.status,
-      token: token,
-    };
-  }
+   */
 }

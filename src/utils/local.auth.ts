@@ -10,6 +10,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
+  /* 
   async validate({ email, password }: SignIn) {
     const user = await this.authService.signIn({ email, password });
     if (!user) {
@@ -17,4 +18,5 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     }
     return user;
   }
+  */
 }

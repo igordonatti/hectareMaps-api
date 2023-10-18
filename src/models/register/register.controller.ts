@@ -9,12 +9,13 @@ import {
 import { RegisterService } from './register.service';
 import { Response } from 'express';
 import { SignIn } from 'src/dtos/signIn.dto';
-import { UserDto } from 'src/dtos/user.dto';
+import { User } from 'src/user/entities/user.entity';
 
 @Controller('register')
 export class RegisterController {
   constructor(private readonly registerService: RegisterService) {}
 
+  /* 
   @Post('signIn')
   async signIn(@Body() body: SignIn, @Res() res: Response) {
     try {
@@ -26,9 +27,10 @@ export class RegisterController {
       );
     }
   }
+  */
 
   @Post('signUp')
-  async signUp(@Body() body: UserDto, @Res() res: Response) {
+  async signUp(@Body() body: User, @Res() res: Response) {
     try {
       res.status(200).send(await this.registerService.signUp(body));
     } catch (error) {
