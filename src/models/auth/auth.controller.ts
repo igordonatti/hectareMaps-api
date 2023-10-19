@@ -1,19 +1,29 @@
 import {
   Controller,
   Get,
+  HttpCode,
   HttpException,
   HttpStatus,
   Param,
+  Post,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthMiddleware } from 'src/middlewares/auth.middleware';
 import { AuthService } from './auth.service';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 
-@Controller('auth')
+@Controller()
 export class AuthController {
   constructor(private readonly AuthService: AuthService) {}
+
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(LocalAuthGuard)
+  login() {
+    return 'Realizar Login';
+  }
 
   @Get('validate-token/:token')
   @UseGuards(AuthMiddleware)
