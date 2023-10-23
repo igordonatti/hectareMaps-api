@@ -1,21 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { TokenUtil } from 'src/utils/token.util';
+import { UserService } from 'src/user/user.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly TokenUtil: TokenUtil) {}
+  constructor(private readonly userService: UserService) {}
 
-  validateUser(email: string, password: string) {
-    throw new Error('Method not implemented.');
-  }
+  async validateUser(email: string, password: string) {
+    const user = await this.userService.findByEmail(email);
 
-  async isValidToken(token: string) {
-    try {
-      const user = await this.TokenUtil.decodeToken(token);
-      console.log(user);
-      return { isValid: true, message: 'ok' };
-    } catch (error) {
-      return { isValid: false, message: error.message };
+    if (user) {
+      // Checar se a senha informada corresponde a hash que está no banco
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (isPasswordValid) {
+        return {
+          ...user,
+          password: undefined,
+        };
+      }
     }
+
+    // Se chegar aqui, significa que não encontrou um user e/ou a senha não corresponde
+    throw new Error('Email address or password provided is incorrect.');
   }
 }

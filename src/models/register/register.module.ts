@@ -5,19 +5,12 @@ import { RegisterService } from './register.service';
 import { TokenUtil } from 'src/utils/token.util';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from 'src/utils/local.auth';
 import { UserService } from 'src/user/user.service';
 
 @Module({
   imports: [JwtModule, PassportModule],
   controllers: [RegisterController],
-  providers: [
-    RegisterService,
-    PrismaService,
-    UserService,
-    TokenUtil,
-    LocalStrategy,
-  ],
+  providers: [RegisterService, PrismaService, UserService, TokenUtil],
   exports: [RegisterService],
 })
 export class RegisterModule {}
