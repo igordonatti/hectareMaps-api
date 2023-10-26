@@ -31,19 +31,29 @@ export class UserService {
     });
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll() {
+    return await this.prisma.user.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findByName(name: string) {
+    return await this.prisma.user.findFirst({
+      where: {
+        name,
+      },
+    });
+  }
+
+  async findById(id: number) {
+    return await this.prisma.user.findFirst({
+      where: { id },
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    return await this.prisma.user.delete({ where: { id } });
   }
 }

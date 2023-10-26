@@ -23,17 +23,24 @@ model User {
   status    String
   access_At DateTime?
 
-  Flight Flight[]
-  Plan   Plan[]
+  // Relacionamento um-para-muitos com Plan
+  plans Plan[]
+
+  // Relacionamento um-para-muitos com Project
+  projects Project[]
 }
 
-// Area model
-model Area {
+// Project model
+model Project {
   id   Int    @id @default(autoincrement())
   name String
 
   // Relacionamento um-para-muitos com Flight
   flights Flight[]
+
+  // Relacionamento muitos-para-um com User
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 }
 
 // Flight model
@@ -41,19 +48,13 @@ model Flight {
   id   Int      @id @default(autoincrement())
   date DateTime
 
-  // Relacionamento muitos-para-um com User
-  user    User? @relation(fields: [user_id], references: [id])
-  user_id Int?
-
-  // Relacionamento muitos-para-um com Area
-  area    Area? @relation(fields: [area_id], references: [id])
-  area_id Int?
+  // Relacionamento muitos-para-muitos com Service
+  services Service[]
 
   // Relacionamento um-para-muitos com Image
   images    Image[]
-  Project   Project?  @relation(fields: [projectId], references: [id])
-  projectId Int?
-  Service   Service[]
+  Project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
 }
 
 // Image model
@@ -64,17 +65,8 @@ model Image {
   mimetype String
 
   // Relacionamento muitos-para-um com Flight
-  flight    Flight? @relation(fields: [flight_id], references: [id])
-  flight_id Int?
-}
-
-// Project model
-model Project {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  // Relacionamento um-para-muitos com Flight
-  flights Flight[]
+  flight   Flight @relation(fields: [flightId], references: [id])
+  flightId Int
 }
 
 // Service model
@@ -82,9 +74,8 @@ model Service {
   id           Int    @id @default(autoincrement())
   service_type String
 
-  // Relacionamento muitos-para-um com Flight
-  flight    Flight? @relation(fields: [flight_id], references: [id])
-  flight_id Int?
+  // Relacionamento muitos-para-muitos com Flight
+  flights Flight[]
 }
 
 // Plan model
@@ -102,6 +93,6 @@ model Plan {
   site_emphasis      Boolean
 
   // Relacionamento muitos-para-um com User
-  user    User? @relation(fields: [user_id], references: [id])
-  user_id Int?
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 }

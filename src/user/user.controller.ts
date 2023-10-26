@@ -20,14 +20,19 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @Get()
-  findAll() {
-    return this.userService.findAll();
+  @Get('all')
+  async findAll() {
+    return await this.userService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  async findById(@Param('id') id: string) {
+    return await this.userService.findById(+id);
+  }
+
+  @Get(':name')
+  async findByName(@Param('name') name: string) {
+    return await this.userService.findByName(name);
   }
 
   @Patch(':id')
@@ -36,7 +41,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.userService.remove(+id);
   }
 }
