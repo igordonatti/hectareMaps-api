@@ -30,6 +30,9 @@ export class ImagesService {
           path: file.path,
           filename: file.originalname,
           mimetype: file.mimetype,
+          flight: {
+            connect: { id: 1 }, // Precisa alterar essa lógica para referenciar o voo correto
+          },
         },
       });
 
