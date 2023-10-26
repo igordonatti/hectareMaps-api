@@ -33,6 +33,7 @@ export class PlanService {
     active,
     months_of_validity,
     site_emphasis,
+    userId,
   }: PlanDto) {
     try {
       const row = await this.prisma.plan.create({
@@ -45,6 +46,9 @@ export class PlanService {
           active,
           months_of_validity,
           site_emphasis,
+          user: {
+            connect: { id: userId }, // Conecte o plano a um usuário pelo ID
+          },
         },
       });
 

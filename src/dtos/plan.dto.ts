@@ -11,4 +11,5 @@ export class PlanDto {
   active: boolean;
   months_of_validity: number;
   site_emphasis: boolean;
+  userId: number;
 }
