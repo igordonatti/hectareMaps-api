@@ -4,10 +4,9 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { PlanModule } from './models/plan/plan.module';
 import { ConfigureModule } from './models/config/configure.module';
-import { RegisterModule } from './models/register/register.module';
 import { ImagesModule } from './models/images/images.module';
 import { AuthModule } from './models/auth/auth.module';
-import { UserModule } from './user/user.module';
+import { UserModule } from './models/user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './models/auth/guards/jwt-auth.guard';
 
@@ -20,7 +19,6 @@ import { JwtAuthGuard } from './models/auth/guards/jwt-auth.guard';
     UserModule,
     PlanModule,
     ConfigureModule,
-    RegisterModule,
     ImagesModule,
     AuthModule,
   ],

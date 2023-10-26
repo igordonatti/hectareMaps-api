@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/databases/prisma.service';
-import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -10,19 +9,33 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
-    const data = {
-      ...createUserDto,
-      password: await bcrypt.hash(createUserDto.password, 10),
-      access_At: new Date(),
-      status: 'CREATED',
-    };
+    const result = await this.prisma.user.findFirst({
+      where: { email: createUserDto.email },
+    }); // Confirmando se não existe usuário já cadastrado com este email
 
-    const createdUser = await this.prisma.user.create({ data });
+    if (!result || !result.id) {
+      const data = {
+        ...createUserDto,
+        password: await bcrypt.hash(createUserDto.password, 10),
+        access_At: new Date(),
+        status: 'CREATED',
+      };
 
-    return {
-      ...createdUser,
-      password: undefined,
-    };
+      const createdUser = await this.prisma.user.create({ data });
+
+      return {
+        ...createdUser,
+        password: undefined,
+        status: 200,
+        message:
+          'Pedido de registro realizado! Um link de confirmação foi enviado para o email informado. Em 48 horas ele irá expirar.',
+      };
+    } else {
+      return {
+        status: 422,
+        message: 'Email já cadastrado',
+      };
+    }
   }
 
   async findByEmail(email: string) {

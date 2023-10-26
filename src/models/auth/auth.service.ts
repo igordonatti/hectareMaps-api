@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/models/user/user.service';
 import * as bcrypt from 'bcrypt';
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/models/user/entities/user.entity';
 import { UserPayload } from './models/UserPayload';
 import { JwtService } from '@nestjs/jwt';
 import { UserToken } from './models/UserToken';
@@ -30,6 +30,13 @@ export class AuthService {
 
   async validateUser(email: string, password: string) {
     const user = await this.userService.findByEmail(email);
+
+    if (user.status == 'CREATED') {
+      return {
+        status: 422,
+        message: 'Seu acesso ainda não foi autorizado!',
+      };
+    }
 
     if (user) {
       // Checar se a senha informada corresponde a hash que está no banco
