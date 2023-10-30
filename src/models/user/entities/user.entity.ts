@@ -8,6 +8,6 @@ export class User {
   password: string;
   cpf: string;
   phone: string;
-  role: Role[];
+  role: string;
   status: string;
 }

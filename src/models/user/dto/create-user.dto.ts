@@ -1,3 +1,4 @@
+import { Role } from 'src/models/auth/enums/role.enum';
 import { User } from '../entities/user.entity';
 import { IsEmail, IsString, Matches, MinLength } from 'class-validator';
 
