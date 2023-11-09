@@ -23,9 +23,6 @@ model User {
   status    String
   access_At DateTime?
 
-  // Relacionamento um-para-muitos com Plan
-  plans Plan[]
-
   // Relacionamento um-para-muitos com Project
   projects Project[]
 }
@@ -52,7 +49,8 @@ model Flight {
   services Service[]
 
   // Relacionamento um-para-muitos com Image
-  images    Image[]
+  images Image[]
+
   Project   Project @relation(fields: [projectId], references: [id])
   projectId Int
 }
@@ -76,23 +74,4 @@ model Service {
 
   // Relacionamento muitos-para-muitos com Flight
   flights Flight[]
-}
-
-// Plan model
-model Plan {
-  id                 Int       @id @default(autoincrement())
-  name               String
-  max_images         Int
-  storage_space      Int
-  start_date         DateTime?
-  end_date           DateTime?
-  observation        String
-  active             Boolean
-  price              Int
-  months_of_validity Int
-  site_emphasis      Boolean
-
-  // Relacionamento muitos-para-um com User
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
 }

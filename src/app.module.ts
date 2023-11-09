@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { PlanModule } from './models/plan/plan.module';
 import { ConfigureModule } from './models/config/configure.module';
 import { ImagesModule } from './models/images/images.module';
 import { AuthModule } from './models/auth/auth.module';
 import { UserModule } from './models/user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './models/auth/guards/jwt-auth.guard';
+import { ProjectModule } from './models/project/project.module';
 
 @Module({
   imports: [
@@ -17,10 +17,10 @@ import { JwtAuthGuard } from './models/auth/guards/jwt-auth.guard';
       envFilePath: '.env',
     }),
     UserModule,
-    PlanModule,
     ConfigureModule,
     ImagesModule,
     AuthModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [
