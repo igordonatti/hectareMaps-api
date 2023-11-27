@@ -55,4 +55,11 @@ export class AuthService {
     // Se chegar aqui, significa que não encontrou um user e/ou a senha não corresponde
     throw new Error('Email address or password provided is incorrect.');
   }
+
+  async validateToken(token: string) {
+    const data = this.jwtService.verify(token);
+    return {
+      ...data,
+    };
+  }
 }
