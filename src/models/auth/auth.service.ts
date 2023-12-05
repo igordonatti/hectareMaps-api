@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/models/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/models/user/entities/user.entity';
@@ -32,13 +32,6 @@ export class AuthService {
   async validateUser(email: string, password: string) {
     const user = await this.userService.findByEmail(email);
 
-    if (user.status == 'CREATED') {
-      return {
-        status: 422,
-        message: 'Seu acesso ainda não foi autorizado!',
-      };
-    }
-
     if (user) {
       // Checar se a senha informada corresponde a hash que está no banco
 
@@ -57,9 +50,11 @@ export class AuthService {
   }
 
   async validateToken(token: string) {
-    const data = this.jwtService.verify(token);
-    return {
-      ...data,
-    };
+    try {
+      const decoded = this.jwtService.verify(token);
+      return decoded;
+    } catch (error) {
+      throw new UnauthorizedException('Token Inválido');
+    }
   }
 }
