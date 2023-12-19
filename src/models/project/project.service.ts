@@ -11,8 +11,6 @@ export class ProjectService {
       where: { id: createProject.userId },
     });
 
-    console.log(user);
-
     if (user) {
       const response = await this.prisma.project.create({
         data: {

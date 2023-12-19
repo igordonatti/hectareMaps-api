@@ -17,8 +17,6 @@ export class UserService {
       const data = {
         ...createUserDto,
         password: await bcrypt.hash(createUserDto.password, 10),
-        access_At: new Date(),
-        status: 'CREATED',
       };
 
       const createdUser = await this.prisma.user.create({ data });

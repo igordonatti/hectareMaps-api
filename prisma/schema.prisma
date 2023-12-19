@@ -12,16 +12,14 @@ datasource db {
 
 // User model
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String
-  lastname  String
-  email     String    @unique
-  password  String
-  cpf       String    @unique
-  phone     String
-  role      String
-  status    String
-  access_At DateTime?
+  id       Int    @id @default(autoincrement())
+  name     String
+  lastname String
+  email    String @unique
+  password String
+  cpf      String @unique
+  phone    String
+  role     Role   @default(CREATED)
 
   // Relacionamento um-para-muitos com Project
   projects Project[]
@@ -74,4 +72,10 @@ model Service {
 
   // Relacionamento muitos-para-muitos com Flight
   flights Flight[]
+}
+
+enum Role {
+  CREATED
+  ADMIN
+  USER
 }

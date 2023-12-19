@@ -11,6 +11,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { isPublic } from '../auth/decorators/is-public.decorator';
+import { Roles } from '../role/decorators/roles.decorator';
 
 @Controller('user')
 export class UserController {

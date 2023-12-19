@@ -4,9 +4,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/models/role/guards/roles.guard';
 
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {
+  constructor(private readonly rolesGuard: RolesGuard) {
+    super();
+  }
+
   canActivate(context: ExecutionContext) {
     return super.canActivate(context);
   }
