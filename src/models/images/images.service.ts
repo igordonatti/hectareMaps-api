@@ -3,6 +3,7 @@ import { PrismaService } from 'src/databases/prisma.service';
 import { createReadStream, existsSync, mkdirSync, createWriteStream } from 'fs';
 import * as path from 'path';
 import { env } from 'process';
+import { Express } from 'express';
 
 @Injectable()
 export class ImagesService {
@@ -27,7 +28,7 @@ export class ImagesService {
         filename: file.originalname,
         path: file.path,
         mimetype: file.mimetype,
-        flight: { connect: { id: 1 } },
+        flight: { connect: { id: 2 } },
       },
     });
 
