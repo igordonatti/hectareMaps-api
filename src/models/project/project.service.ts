@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/databases/prisma.service';
 import { CreateProjectDTO } from './dto/create-project.dto';
+import { DeleteProjectDTO } from './dto/delete-project.dto';
 
 @Injectable()
 export class ProjectService {
@@ -35,6 +36,17 @@ export class ProjectService {
   async getAllByUser(userId: number) {
     const response = await this.prisma.project.findMany({
       where: {
+        userId,
+      },
+    });
+
+    return response;
+  }
+
+  async deleteProject({ id, userId }: DeleteProjectDTO) {
+    const response = await this.prisma.project.delete({
+      where: {
+        id,
         userId,
       },
     });
