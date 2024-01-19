@@ -9,6 +9,7 @@ import { UserModule } from './models/user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './models/auth/guards/jwt-auth.guard';
 import { ProjectModule } from './models/project/project.module';
+import { FlightModule } from './models/flight/flight.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ProjectModule } from './models/project/project.module';
     ImagesModule,
     AuthModule,
     ProjectModule,
+    FlightModule,
   ],
   controllers: [AppController],
   providers: [
