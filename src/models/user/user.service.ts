@@ -13,10 +13,13 @@ export class UserService {
       where: { email: createUserDto.email },
     }); // Confirmando se não existe usuário já cadastrado com este email
 
+    const date = new Date();
+
     if (!result || !result.id) {
       const data = {
         ...createUserDto,
         password: await bcrypt.hash(createUserDto.password, 10),
+        createdAt: `${date}`,
       };
 
       const createdUser = await this.prisma.user.create({ data });
