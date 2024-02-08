@@ -21,4 +21,9 @@ export class ProjectControler {
   deleteProject(@Body() deleteProjectDTO: DeleteProjectDTO) {
     return this.projectService.deleteProject(deleteProjectDTO);
   }
+
+  @Get(':idProject')
+  getProjectById(@Param('idProject') idProject: number) {
+    return this.projectService.getById(idProject);
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { FlightService } from './flight.service';
 import { CreateFlightDTO } from './dto/create-flight';
 
@@ -9,5 +9,10 @@ export class FlightController {
   @Post()
   create(@Body() createFlightDTO: CreateFlightDTO) {
     return this.flightService.createFlight(createFlightDTO);
+  }
+
+  @Get('/:idProject')
+  getAllFlightsFromProject(@Param('idProject') idProject: number) {
+    return this.flightService.getAllFromProjectId(idProject);
   }
 }

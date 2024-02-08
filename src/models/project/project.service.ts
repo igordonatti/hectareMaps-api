@@ -53,4 +53,21 @@ export class ProjectService {
 
     return response;
   }
+
+  async getById(id: number) {
+    const response = await this.prisma.project.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        flights: {
+          where: {
+            projectId: id,
+          },
+        },
+      },
+    });
+
+    return response;
+  }
 }

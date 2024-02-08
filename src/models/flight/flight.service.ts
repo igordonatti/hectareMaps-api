@@ -16,4 +16,14 @@ export class FlightService {
 
     return result;
   }
+
+  async getAllFromProjectId(idProject: number) {
+    const result = await this.prisma.flight.findMany({
+      where: {
+        projectId: idProject,
+      },
+    });
+
+    return result;
+  }
 }
