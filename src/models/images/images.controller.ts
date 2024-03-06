@@ -22,7 +22,11 @@ export class ImagesController {
       }),
     }),
   )
-  async uploadImage(@UploadedFile() file: Express.Multer.File) {
-    this.imagesService.createImage(file);
+  async uploadImage(
+    @UploadedFile() file: Express.Multer.File,
+    idFlight: number,
+  ) {
+    console.log(file);
+    this.imagesService.createImage(file, idFlight);
   }
 }

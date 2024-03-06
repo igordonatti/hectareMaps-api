@@ -9,7 +9,7 @@ import { Express } from 'express';
 export class ImagesService {
   constructor(private prisma: PrismaService) {}
 
-  async createImage(file: Express.Multer.File) {
+  async createImage(file: Express.Multer.File, idFlight: number) {
     const uploadPath = path.join(env.URL_IMAGE);
     const imagePath = path.join(uploadPath, `${file.originalname}`);
 
@@ -28,7 +28,11 @@ export class ImagesService {
         filename: file.originalname,
         path: file.path,
         mimetype: file.mimetype,
-        flight: { connect: { id: 2 } },
+        flight: {
+          connect: {
+            id: idFlight,
+          },
+        },
       },
     });
 
