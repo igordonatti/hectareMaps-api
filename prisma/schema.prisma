@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,72 +11,60 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// User model
-model User {
-  id        Int    @id @default(autoincrement())
-  name      String
-  lastname  String
-  email     String @unique
-  password  String
-  cpf       String @unique
-  phone     String
-  role      Role   @default(CREATED)
-  createdAt String
-
-  // Relacionamento um-para-muitos com Project
-  projects Project[]
-}
-
-// Project model
-model Project {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  // Relacionamento um-para-muitos com Flight
-  flights Flight[]
-
-  // Relacionamento muitos-para-um com User
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-}
-
-// Flight model
-model Flight {
-  id   Int      @id @default(autoincrement())
-  date DateTime
-
-  // Relacionamento muitos-para-muitos com Service
-  services Service[]
-
-  // Relacionamento um-para-muitos com Image
-  images Image[]
-
-  Project   Project @relation(fields: [projectId], references: [id])
+model flight {
+  id        Int       @id @default(autoincrement())
+  date      DateTime
   projectId Int
+  project   project   @relation(fields: [projectId], references: [id], map: "Flight_projectId_fkey")
+  image     image[]
+  service   service[] @relation("flighttoservice")
+
+  @@index([projectId], map: "Flight_projectId_fkey")
 }
 
-// Image model
-model Image {
+model image {
   id       Int    @id @default(autoincrement())
   filename String
-  path     String
   mimetype String
-
-  // Relacionamento muitos-para-um com Flight
-  flight   Flight @relation(fields: [flightId], references: [id])
+  path     String
   flightId Int
+  flight   flight @relation(fields: [flightId], references: [id], map: "Image_flightId_fkey")
+
+  @@index([flightId], map: "Image_flightId_fkey")
 }
 
-// Service model
-model Service {
-  id           Int    @id @default(autoincrement())
-  service_type String
+model project {
+  id     Int      @id @default(autoincrement())
+  name   String
+  userId Int
+  flight flight[]
+  user   user     @relation(fields: [userId], references: [id], map: "Project_userId_fkey")
 
-  // Relacionamento muitos-para-muitos com Flight
-  flights Flight[]
+  @@index([userId], map: "Project_userId_fkey")
 }
 
-enum Role {
+model service {
+  id          Int      @id @default(autoincrement())
+  created     DateTime
+  serviceType String   @default("")
+  status      String
+  flight      flight[] @relation("flighttoservice")
+}
+
+model user {
+  id        Int       @id @default(autoincrement())
+  name      String
+  lastname  String
+  email     String    @unique(map: "User_email_key")
+  cpf       String    @unique(map: "User_cpf_key")
+  phone     String
+  password  String
+  role      user_role @default(CREATED)
+  createdAt String
+  project   project[]
+}
+
+enum user_role {
   CREATED
   ADMIN
   USER

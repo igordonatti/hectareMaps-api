@@ -60,7 +60,7 @@ export class ProjectService {
         id,
       },
       include: {
-        flights: {
+        flight: {
           where: {
             projectId: id,
           },

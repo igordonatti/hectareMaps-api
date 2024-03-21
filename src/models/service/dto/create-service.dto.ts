@@ -1,7 +1,11 @@
-import { IsString } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 import { Service } from '../entities/service.entity';
+import { ServicesEnum } from '../enum/service.enum';
 
-export class CreateService extends Service {
+export class CreateServiceDTO extends Service {
   @IsString()
-  name: Enumerator;
+  serviceType: ServicesEnum;
+
+  @IsInt()
+  flightId: number;
 }
