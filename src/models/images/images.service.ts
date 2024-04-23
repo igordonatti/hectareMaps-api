@@ -36,6 +36,8 @@ export class ImagesService {
       },
     });
 
+    console.log('Envio de imagem bem sucedida: ' + file.filename);
+
     return {
       message: 'Arquivo salvo com sucesso!',
       status: 200,

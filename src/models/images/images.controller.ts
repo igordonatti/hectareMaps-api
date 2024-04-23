@@ -3,17 +3,17 @@ import {
   UseInterceptors,
   UploadedFile,
   Post,
+  Get,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { ImagesService } from './images.service';
-import { isPublic } from '../auth/decorators/is-public.decorator';
 
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
 
-  @isPublic()
   @Post('upload')
   @UseInterceptors(
     FileInterceptor('image', {
@@ -24,9 +24,13 @@ export class ImagesController {
   )
   async uploadImage(
     @UploadedFile() file: Express.Multer.File,
-    idFlight: number,
+    @Query('idFlight') idFlight: string,
   ) {
-    console.log(file);
-    this.imagesService.createImage(file, idFlight);
+    return await this.imagesService.createImage(file, +idFlight);
   }
+
+  // @Get('allImages')
+  // async getImages(){
+  //   this.imagesService.getImage();
+  // }
 }
