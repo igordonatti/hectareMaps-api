@@ -11,7 +11,7 @@ export class ServiceService {
 
     const response = await this.prisma.service.create({
       data: {
-        serviceType: data.serviceType,
+        serviceType: data.name,
         created: date,
         status: 'CREATED',
         flight: {
@@ -35,8 +35,6 @@ export class ServiceService {
         },
       },
     });
-
-    console.log(response);
 
     return response;
   }

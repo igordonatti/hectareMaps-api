@@ -8,8 +8,6 @@ export class ServiceController {
 
   @Post('create')
   createService(@Body() data: CreateServiceDTO) {
-    console.log(data);
-
     return this.serviceService.createService(data);
   }
 
